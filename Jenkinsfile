@@ -14,14 +14,14 @@ pipeline {
       steps {
         script {
           dir("webapp") {
-            dockerImage = docker.build "${env.ARTIFACT_ID}"
+            dockerImage = bat 'docker.build "${env.ARTIFACT_ID}"'
           }
         }
       }
     }
     stage('Run tests') {
       steps {
-         powershell 'Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force;docker run ${dockerImage.id} npm test'
+         bat 'Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force;docker run ${dockerImage.id} npm test'
       }
     }
     stage('Publish') {
