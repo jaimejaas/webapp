@@ -6,7 +6,7 @@ pipeline {
   }
 
   environment {
-    ARTIFACT_ID = "elbuo8/webapp:${env.BUILD_NUMBER}"
+    ARTIFACT_ID = "webapp:${env.BUILD_NUMBER}"
   }
 
   stages {
@@ -21,7 +21,7 @@ pipeline {
     }
     stage('Run tests') {
       steps {
-        sh "docker run ${dockerImage.id} npm test"
+         powershell 'Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force;docker run ${dockerImage.id} npm test'
       }
     }
     stage('Publish') {
